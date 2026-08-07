@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import { Search, X, ChevronRight, Clock, AlertCircle, AlertTriangle} from "lucide-react";
+import {
+  Search,
+  X,
+  ChevronRight,
+  Clock,
+  AlertCircle,
+  AlertTriangle,
+} from "lucide-react";
 import Link from "next/link";
 // ---------------------------------------------------------------------------
 // mock data — reflects RF-002 columns, RF-003 SLA logic, RF-004 detail fields
@@ -96,16 +103,33 @@ const SEARCH_FIELDS = ["ci", "hostname", "nodo", "sitio", "olt", "router"];
 // ---------------------------------------------------------------------------
 function KpiSegment({ label, value, accent, bordered }: any) {
   return (
-    <div style={{
-      minWidth: 96,
-      paddingRight: bordered ? 24 : 0,
-      marginRight: bordered ? 24 : 0,
-      borderRight: bordered ? "1px solid var(--border-subtle)" : "none",
-    }}>
-      <div style={{ fontSize: 10.5, letterSpacing: "0.06em", textTransform: "uppercase", color: "var(--text-tertiary)", marginBottom: 8 }}>
+    <div
+      style={{
+        minWidth: 96,
+        paddingRight: bordered ? 24 : 0,
+        marginRight: bordered ? 24 : 0,
+        borderRight: bordered ? "1px solid var(--border-subtle)" : "none",
+      }}
+    >
+      <div
+        style={{
+          fontSize: 10.5,
+          letterSpacing: "0.06em",
+          textTransform: "uppercase",
+          color: "var(--text-tertiary)",
+          marginBottom: 8,
+        }}
+      >
         {label}
       </div>
-      <div style={{ fontFamily: "var(--font-mono)", fontSize: 24, fontWeight: 700, color: accent || "var(--text-primary)" }}>
+      <div
+        style={{
+          fontFamily: "var(--font-mono)",
+          fontSize: 24,
+          fontWeight: 700,
+          color: accent || "var(--text-primary)",
+        }}
+      >
         {value}
       </div>
     </div>
@@ -152,14 +176,23 @@ function KpiCard({ label, value, accent }) {
 
 function PriorityBadge({ prio }: any) {
   const m = PRIORITY_META[prio];
-  const critica = prio === "P1" || prio === "P2"|| prio === "P3";
+  const critica = prio === "P1" || prio === "P2" || prio === "P3";
   return (
-    <span style={{
-      fontFamily: "var(--font-mono)", fontSize: 11.5, fontWeight: 600,
-      color: m.color, background: m.bg, padding: "2px 8px", borderRadius: 4,
-      border: `1px solid rgba(${m.rgb}, 0.25)`,
-      display: "inline-flex", alignItems: "center", gap: 4,
-    }}>
+    <span
+      style={{
+        fontFamily: "var(--font-mono)",
+        fontSize: 11.5,
+        fontWeight: 600,
+        color: m.color,
+        background: m.bg,
+        padding: "2px 8px",
+        borderRadius: 4,
+        border: `1px solid rgba(${m.rgb}, 0.25)`,
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 4,
+      }}
+    >
       {critica && <AlertTriangle size={11} />}
       {m.label}
     </span>
@@ -561,12 +594,27 @@ function DetailPanel({ incident, onClose, onFindRelated }: any) {
 
       <button
         onClick={() => onFindRelated(incident)}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(47,191,159,0.22)")}
-        onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(47,191,159,0.14)")}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.background = "rgba(47,191,159,0.22)")
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.background = "rgba(47,191,159,0.14)")
+        }
         style={{
-          marginTop: 20, width: "100%", background: "rgba(47,191,159,0.14)", border: "1px solid var(--accent)",
-          color: "var(--accent)", borderRadius: 8, padding: "10px 0", fontSize: 12.5, fontWeight: 600,
-          cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
+          marginTop: 20,
+          width: "100%",
+          background: "rgba(47,191,159,0.14)",
+          border: "1px solid var(--accent)",
+          color: "var(--accent)",
+          borderRadius: 8,
+          padding: "10px 0",
+          fontSize: 12.5,
+          fontWeight: 600,
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 6,
           transition: "background 0.15s ease",
         }}
       >
@@ -808,8 +856,8 @@ export default function CORDashboard() {
     return () => clearInterval(iv);
   }, []);
   const filasVisibles = filtroPrioridad
-  ? incidentesOrdenados.filter((i) => i.prioridad === filtroPrioridad)
-  : incidentesOrdenados;
+    ? incidentesOrdenados.filter((i) => i.prioridad === filtroPrioridad)
+    : incidentesOrdenados;
 
   const abiertos = incidents.length;
   const porPrioridad = ["P1", "P2", "P3", "P4"].map(
@@ -949,280 +997,375 @@ export default function CORDashboard() {
         </div>
       </div>
 
-      {/* RF-001 */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr auto 1fr", gap: 28, marginBottom: 22, alignItems: "start" }}>
-        <div style={{ justifySelf: "end", background: "var(--surface-1)", border: "1px solid var(--border)", borderRadius: 10, padding: "20px 24px" }}>
-          <div
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "var(--text-tertiary)",
-              marginBottom: 14,
-            }}
-          >
-            Volumen
-          </div>
-          <div style={{ display: "flex" }}>
-            <KpiSegment label="Incidentes abiertos" value={abiertos} bordered />
-            <KpiSegment
-              label="Cerrados hoy"
-              value="14"
-              accent="var(--success)"
-            />
-          </div>
-        </div>
-
-        <div
-          style={{
-            background: "var(--surface-1)",
-            border: "1px solid var(--border)",
-            borderRadius: 10,
-            padding: "20px 24px",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "var(--text-tertiary)",
-              marginBottom: 14,
-            }}
-          >
-            Por prioridad
-          </div>
-          <div style={{ display: "flex" }}>
-            <KpiSegment
-              label="P1"
-              value={porPrioridad[0]}
-              accent="var(--p1)"
-              bordered
-            />
-            <KpiSegment
-              label="P2"
-              value={porPrioridad[1]}
-              accent="var(--p2)"
-              bordered
-            />
-            <KpiSegment
-              label="P3"
-              value={porPrioridad[2]}
-              accent="var(--p3)"
-              bordered
-            />
-            <KpiSegment label="P4" value={porPrioridad[3]} accent="var(--p4)" />
-          </div>
-        </div>
-
-        <div
-          style={{
-            justifySelf: "start",
-            background: "var(--surface-1)",
-            border: "1px solid var(--border)",
-            borderRadius: 10,
-            padding: "20px 24px",
-          }}
-        >
-          <div
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              color: "var(--text-tertiary)",
-              marginBottom: 14,
-            }}
-          >
-            SLA de avances
-          </div>
-          <div style={{ display: "flex" }}>
-            <KpiSegment
-              label="Avances pendientes"
-              value={avancesPendientes}
-              accent="var(--warning)"
-              bordered
-            />
-            <KpiSegment
-              label="Avances vencidos"
-              value={avancesVencidos}
-              accent="var(--danger)"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* RF-002 + RF-003 */}
       <div
-        style={{
-          background: "var(--surface-1)",
-          border: "1px solid var(--border)",
-          borderRadius: 10,
-          padding: "18px 20px",
-        }}
+        className={
+          "w-full flex flex-col lg:flex-row gap-6 mt-6 transition-all duration-300 " +
+          (selected ? "w-full lg:w-2/3" : "w-full")
+        }
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginBottom: 14,
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 15,
-              fontWeight: 600,
-            }}
-          >
-            Registro de Fallas
-          </span>
-          <span style={{ fontSize: 11.5, color: "var(--text-quaternary)" }}>
-            {incidents.length} incidentes activos · clic en una fila para ver
-            detalle
-          </span>
-        </div>
-        <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
-          {["P1", "P2", "P3", "P4", "P5"].map((p) => (
-            <button
-              key={p}
-              onClick={() => setFiltroPrioridad(filtroPrioridad === p ? null : p)}
+        <div className="w-full flex-row lg:w-2/3">
+          {/* FILA 1: * Tarjetas KPI Incidentes*/}
+
+          <div className="w-full flex flex-col lg:flex-row gap-6 mt-6">
+            {/* Tarjeta Volumen */}
+            <div
               style={{
-                fontFamily: "var(--font-mono)", fontSize: 11.5, fontWeight: 600,
-                padding: "4px 12px", borderRadius: 20, cursor: "pointer",
-                color: filtroPrioridad === p ? "var(--surface-0)" : PRIORITY_META[p].color,
-                background: filtroPrioridad === p ? PRIORITY_META[p].color : PRIORITY_META[p].bg,
-                border: `1px solid rgba(${PRIORITY_META[p].rgb}, 0.4)`,
-                transition: "all 0.15s ease",
+                justifySelf: "end",
+                background: "var(--surface-1)",
+                border: "1px solid var(--border)",
+                borderRadius: 10,
+                padding: "20px 24px",
               }}
             >
-              {p}
-            </button>
-          ))}
-          {filtroPrioridad && (
-            <button
-              onClick={() => setFiltroPrioridad(null)}
-              style={{
-                fontSize: 11.5, padding: "4px 10px", borderRadius: 20, cursor: "pointer",
-                color: "var(--text-tertiary)", background: "transparent", border: "1px solid var(--border)",
-              }}
-            >
-              Limpiar
-            </button>
-          )}
-        </div>
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ fontSize: 12.5 }}>
-            <thead>
-              <tr
+              <div
                 style={{
-                  color: "var(--text-tertiary)",
-                  fontSize: 10.5,
+                  fontSize: 11,
+                  letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  letterSpacing: "0.05em",
+                  color: "var(--text-tertiary)",
+                  marginBottom: 14,
                 }}
               >
-                <th style={{ padding: "0 14px 10px 0" }}>Ticket</th>
-                <th style={{ padding: "0 14px 10px 0" }}>Descripción</th>
-                <th style={{ padding: "0 14px 10px 0" }}>Prioridad</th>
-                <th style={{ padding: "0 14px 10px 0" }}>Zona</th>
-                <th style={{ padding: "0 14px 10px 0" }}>Grupo</th>
-                <th style={{ padding: "0 14px 10px 0" }}>Asignado a</th>
-                <th style={{ padding: "0 14px 10px 0" }}>Tiempo abierto</th>
-                <th style={{ padding: "0 14px 10px 0" }}>Próximo avance</th>
-                <th style={{ padding: "0 0 10px 0" }}>CI afectado</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filasVisibles.map((i) => (
-                <tr
-                  key={i.ticketNumber}
-                  style={{ borderTop: "1px solid var(--border-subtle)" }}
-                  onClick={() => {
-                    setSelected(i);
-                    fetch(`http://localhost:8080/api/incidentes/${i.id}`)
-                      .then((res) => res.json())
-                      .then((data) => setDetailIncident(data))
-                      .catch((err) =>
-                        console.error("Error cargando detalle:", err),
-                      );
+                Volumen
+              </div>
+              <div style={{ display: "flex" }}>
+                <KpiSegment
+                  label="Incidentes abiertos"
+                  value={abiertos}
+                  bordered
+                />
+                <KpiSegment
+                  label="Cerrados hoy"
+                  value="14"
+                  accent="var(--success)"
+                />
+              </div>
+            </div>
+            {/* Tarjeta x Prioridad */}
+            <div
+              style={{
+                background: "var(--surface-1)",
+                border: "1px solid var(--border)",
+                borderRadius: 10,
+                padding: "20px 24px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "var(--text-tertiary)",
+                  marginBottom: 14,
+                }}
+              >
+                Por prioridad
+              </div>
+              <div style={{ display: "flex" }}>
+                <KpiSegment
+                  label="P1"
+                  value={porPrioridad[0]}
+                  accent="var(--p1)"
+                  bordered
+                />
+                <KpiSegment
+                  label="P2"
+                  value={porPrioridad[1]}
+                  accent="var(--p2)"
+                  bordered
+                />
+                <KpiSegment
+                  label="P3"
+                  value={porPrioridad[2]}
+                  accent="var(--p3)"
+                  bordered
+                />
+                <KpiSegment
+                  label="P4"
+                  value={porPrioridad[3]}
+                  accent="var(--p4)"
+                />
+              </div>
+            </div>
+            {/* Tarjeta SLA de avances */}
+            <div
+              style={{
+                justifySelf: "start",
+                background: "var(--surface-1)",
+                border: "1px solid var(--border)",
+                borderRadius: 10,
+                padding: "20px 24px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 11,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: "var(--text-tertiary)",
+                  marginBottom: 14,
+                }}
+              >
+                SLA de avances
+              </div>
+              <div style={{ display: "flex" }}>
+                <KpiSegment
+                  label="Avances pendientes"
+                  value={avancesPendientes}
+                  accent="var(--warning)"
+                  bordered
+                />
+                <KpiSegment
+                  label="Avances vencidos"
+                  value={avancesVencidos}
+                  accent="var(--danger)"
+                />
+              </div>
+            </div>
+          </div>
+          {/* FILA 2: TABLA INCIDENTES*/}
+          <div className="w-full flex flex-col lg:flex-row gap-6 mt-6">
+            <div
+              style={{
+                background: "var(--surface-1)",
+                border: "1px solid var(--border)",
+                borderRadius: 10,
+                padding: "18px 20px",
+              }}
+            >
+              {/*  ENCABEZADO TABLA */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: 14,
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: 15,
+                    fontWeight: 600,
                   }}
                 >
-                  <td
+                  Registro de Fallas
+                </span>
+                <span
+                  style={{ fontSize: 11.5, color: "var(--text-quaternary)" }}
+                >
+                  {incidents.length} incidentes activos · clic en una fila para
+                  ver detalle
+                </span>
+              </div>
+              {/*  FILTROS TABLA */}
+              <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
+                {["P1", "P2", "P3", "P4", "P5"].map((p) => (
+                  <button
+                    key={p}
+                    onClick={() =>
+                      setFiltroPrioridad(filtroPrioridad === p ? null : p)
+                    }
                     style={{
-                      padding: "10px 14px 10px 0",
                       fontFamily: "var(--font-mono)",
-                      color: "var(--accent)",
+                      fontSize: 11.5,
+                      fontWeight: 600,
+                      padding: "4px 12px",
+                      borderRadius: 20,
+                      cursor: "pointer",
+                      color:
+                        filtroPrioridad === p
+                          ? "var(--surface-0)"
+                          : PRIORITY_META[p].color,
+                      background:
+                        filtroPrioridad === p
+                          ? PRIORITY_META[p].color
+                          : PRIORITY_META[p].bg,
+                      border: `1px solid rgba(${PRIORITY_META[p].rgb}, 0.4)`,
+                      transition: "all 0.15s ease",
                     }}
                   >
-                    {i.ticketNumber}
-                  </td>
-                  <td
+                    {p}
+                  </button>
+                ))}
+                {filtroPrioridad && (
+                  <button
+                    onClick={() => setFiltroPrioridad(null)}
                     style={{
-                      padding: "10px 14px 10px 0",
-                      color: "#C9D0D8",
-                      maxWidth: 240,
+                      fontSize: 11.5,
+                      padding: "4px 10px",
+                      borderRadius: 20,
+                      cursor: "pointer",
+                      color: "var(--text-tertiary)",
+                      background: "transparent",
+                      border: "1px solid var(--border)",
                     }}
                   >
-                    {i.descripcion}
-                  </td>
-                  <td style={{ padding: "10px 14px 10px 0" }}>
-                    <PriorityBadge prio={i.prioridad} />
-                  </td>
-                  <td
-                    style={{
-                      padding: "10px 14px 10px 0",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
-                    {i.zona}
-                  </td>
-                  <td
-                    style={{
-                      padding: "10px 14px 10px 0",
-                      color: "var(--text-secondary)",
-                    }}
-                  >
-                    {i.grupoAsignacion}
-                  </td>
-                  <td style={{ padding: "10px 14px 10px 0" }}>
-                    {i.asignadoUsuario ? (
-                      <span style={{ color: "var(--text-secondary)" }}>{i.asignadoUsuario}</span>
-                    ) : (i.prioridad === "P1" || i.prioridad === "P2" || i.prioridad === "P3") ? (
-                      <span style={{
-                        color: "var(--warning)", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: 4,
-                      }}>
-                        Sin asignar
-                      </span>
-                    ) : (
-                      <span style={{ color: "var(--text-quaternary)" }}>Sin asignar</span>
-                    )}
-                  </td>
-                  <td style={{padding: "10px 14px 10px 0",fontFamily: "var(--font-mono)",color: "var(--text-secondary)",}}>
-                    {fmtMin(i.tiempoAbierto)}
-                  </td>
-                  <td style={{ padding: "10px 14px 10px 0" }}>
-                    <SemaforoDot
-                      estado={i.semaforo}
-                      proximoAvanceEn={i.proximoAvanceEn}
-                    />
-                  </td>
-                  <td
-                    style={{
-                      padding: "10px 0",
-                      fontFamily: "var(--font-mono)",
-                      color: "var(--text-quaternary)",
-                    }}
-                  >
-                    {i.ci}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    Limpiar
+                  </button>
+                )}
+              </div>
+              {/*  TABLA INCIDENTES */}
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ fontSize: 12.5 }}>
+                  <thead>
+                    <tr
+                      style={{
+                        color: "var(--text-tertiary)",
+                        fontSize: 10.5,
+                        textTransform: "uppercase",
+                        letterSpacing: "0.05em",
+                      }}
+                    >
+                      <th style={{ padding: "0 14px 10px 0" }}>Ticket</th>
+                      <th style={{ padding: "0 14px 10px 0" }}>Descripción</th>
+                      <th style={{ padding: "0 14px 10px 0" }}>Prioridad</th>
+                      <th style={{ padding: "0 14px 10px 0" }}>Zona</th>
+                      <th style={{ padding: "0 14px 10px 0" }}>Grupo</th>
+                      <th style={{ padding: "0 14px 10px 0" }}>Asignado a</th>
+                      <th style={{ padding: "0 14px 10px 0" }}>
+                        Tiempo abierto
+                      </th>
+                      <th style={{ padding: "0 14px 10px 0" }}>
+                        Próximo avance
+                      </th>
+                      <th style={{ padding: "0 0 10px 0" }}>CI afectado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filasVisibles.map((i) => (
+                      <tr
+                        key={i.ticketNumber}
+                        style={{ borderTop: "1px solid var(--border-subtle)" }}
+                        onClick={() => {
+                          setSelected(i);
+                          fetch(`http://localhost:8080/api/incidentes/${i.id}`)
+                            .then((res) => res.json())
+                            .then((data) => setDetailIncident(data))
+                            .catch((err) =>
+                              console.error("Error cargando detalle:", err),
+                            );
+                        }}
+                      >
+                        <td
+                          style={{
+                            padding: "10px 14px 10px 0",
+                            fontFamily: "var(--font-mono)",
+                            color: "var(--accent)",
+                          }}
+                        >
+                          {i.ticketNumber}
+                        </td>
+                        <td
+                          style={{
+                            padding: "10px 14px 10px 0",
+                            color: "#C9D0D8",
+                            maxWidth: 240,
+                          }}
+                        >
+                          {i.descripcion}
+                        </td>
+                        <td style={{ padding: "10px 14px 10px 0" }}>
+                          <PriorityBadge prio={i.prioridad} />
+                        </td>
+                        <td
+                          style={{
+                            padding: "10px 14px 10px 0",
+                            color: "var(--text-secondary)",
+                          }}
+                        >
+                          {i.zona}
+                        </td>
+                        <td
+                          style={{
+                            padding: "10px 14px 10px 0",
+                            color: "var(--text-secondary)",
+                          }}
+                        >
+                          {i.grupoAsignacion}
+                        </td>
+                        <td style={{ padding: "10px 14px 10px 0" }}>
+                          {i.asignadoUsuario ? (
+                            <span style={{ color: "var(--text-secondary)" }}>
+                              {i.asignadoUsuario}
+                            </span>
+                          ) : i.prioridad === "P1" ||
+                            i.prioridad === "P2" ||
+                            i.prioridad === "P3" ? (
+                            <span
+                              style={{
+                                color: "var(--warning)",
+                                fontWeight: 600,
+                                display: "inline-flex",
+                                alignItems: "center",
+                                gap: 4,
+                              }}
+                            >
+                              Sin asignar
+                            </span>
+                          ) : (
+                            <span style={{ color: "var(--text-quaternary)" }}>
+                              Sin asignar
+                            </span>
+                          )}
+                        </td>
+                        <td
+                          style={{
+                            padding: "10px 14px 10px 0",
+                            fontFamily: "var(--font-mono)",
+                            color: "var(--text-secondary)",
+                          }}
+                        >
+                          {fmtMin(i.tiempoAbierto)}
+                        </td>
+                        <td style={{ padding: "10px 14px 10px 0" }}>
+                          <SemaforoDot
+                            estado={i.semaforo}
+                            proximoAvanceEn={i.proximoAvanceEn}
+                          />
+                        </td>
+                        <td
+                          style={{
+                            padding: "10px 0",
+                            fontFamily: "var(--font-mono)",
+                            color: "var(--text-quaternary)",
+                          }}
+                        >
+                          {i.ci}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
+      {selected && (
+        <div className="w-full lg:w-1/3 transition-all duration-300">
+          <DetailPanel
+            incident={detailIncident}
+            onClose={() => {
+              setSelected(null);
+              setDetailIncident(null);
+            }}
+            onFindRelated={(inc) => {
+              setSearchSeed(inc);
+              setSearchOpen(true);
+            }}
+          />
+        </div>
+      )}
+
+      <RelatedSearchPanel
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        incidents={incidents}
+        seedIncident={searchSeed}
+      />
+      {/* FOOTER */}
       <div
         style={{
           marginTop: 14,
@@ -1234,24 +1377,6 @@ export default function CORDashboard() {
         (autenticación local) y KPIs operacionales (RF-006) quedan como
         siguiente paso.
       </div>
-
-      <DetailPanel
-        incident={detailIncident}
-        onClose={() => {
-          setSelected(null);
-          setDetailIncident(null);
-        }}
-        onFindRelated={(inc) => {
-          setSearchSeed(inc);
-          setSearchOpen(true);
-        }}
-      />
-      <RelatedSearchPanel
-        open={searchOpen}
-        onClose={() => setSearchOpen(false)}
-        incidents={incidents}
-        seedIncident={searchSeed}
-      />
     </div>
   );
 }
