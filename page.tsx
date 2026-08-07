@@ -869,15 +869,7 @@ export default function CORDashboard() {
   ).length;
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "var(--surface-0)",
-        color: "var(--text-primary)",
-        fontFamily: "var(--font-body)",
-        padding: "26px 30px",
-      }}
-    >
+    <div className="w-full min-h-screen bg-[var(--surface-0)] text-[var(--text-primary)] font-[var(--font-body)] p-[26px_30px]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500;600&display=swap');
         table { border-collapse: collapse; width: 100%; }
@@ -886,127 +878,129 @@ export default function CORDashboard() {
       `}</style>
 
       {/* header */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-end",
-          marginBottom: 22,
-          borderBottom: "1px solid var(--border)",
-          paddingBottom: 18,
-        }}
-      >
-        <div>
-          <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 22,
-                fontWeight: 700,
-                letterSpacing: "-0.01em",
-              }}
-            >
-              COR
-            </span>
-            <span style={{ fontSize: 13, color: "var(--text-tertiary)" }}>
-              Centro de Operaciones · Capa de seguimiento sobre ServiceNow
-            </span>
-            <nav style={{ display: "flex", gap: 16 }}>
-              <Link
-                href="/"
+      <header>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+            marginBottom: 22,
+            borderBottom: "1px solid var(--border)",
+            paddingBottom: 18,
+          }}
+        >
+          <div>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+              <span
                 style={{
-                  color: "var(--text-primary)",
-                  fontSize: 13,
-                  textDecoration: "none",
+                  fontFamily: "var(--font-display)",
+                  fontSize: 22,
+                  fontWeight: 700,
+                  letterSpacing: "-0.01em",
                 }}
               >
-                Dashboard
-              </Link>
-              <Link
-                href="/nodos"
+                COR
+              </span>
+              <span style={{ fontSize: 13, color: "var(--text-tertiary)" }}>
+                Centro de Operaciones · Capa de seguimiento sobre ServiceNow
+              </span>
+              <nav style={{ display: "flex", gap: 16 }}>
+                <Link
+                  href="/"
+                  style={{
+                    color: "var(--text-primary)",
+                    fontSize: 13,
+                    textDecoration: "none",
+                  }}
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  href="/nodos"
+                  style={{
+                    color: "var(--text-tertiary)",
+                    fontSize: 13,
+                    textDecoration: "none",
+                  }}
+                >
+                  Nodos
+                </Link>
+              </nav>
+            </div>
+            <div
+              style={{
+                fontSize: 12,
+                color: "var(--text-quaternary)",
+                marginTop: 4,
+                fontFamily: "var(--font-mono)",
+              }}
+            >
+              {clock
+                ? clock.toLocaleDateString("es-ES", {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                  })
+                : ""}{" "}
+              · {clock ? clock.toLocaleTimeString("es-ES") : ""}
+            </div>
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+            <button
+              onClick={() => {
+                setSearchSeed(null);
+                setSearchOpen(true);
+              }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 7,
+                background: "var(--surface-2)",
+                border: "1px solid var(--border)",
+                borderRadius: 6,
+                padding: "7px 12px",
+                color: "var(--text-secondary)",
+                fontSize: 12.5,
+                cursor: "pointer",
+              }}
+            >
+              <Search size={13} /> Buscar relacionados
+            </button>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span
                 style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: "var(--accent)",
+                  boxShadow: "0 0 0 4px rgba(47,191,159,0.18)",
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 11.5,
+                  letterSpacing: "0.06em",
+                  textTransform: "uppercase",
                   color: "var(--text-tertiary)",
-                  fontSize: 13,
-                  textDecoration: "none",
                 }}
               >
-                Nodos
-              </Link>
-            </nav>
-          </div>
-          <div
-            style={{
-              fontSize: 12,
-              color: "var(--text-quaternary)",
-              marginTop: 4,
-              fontFamily: "var(--font-mono)",
-            }}
-          >
-            {clock
-              ? clock.toLocaleDateString("es-ES", {
-                  weekday: "long",
-                  day: "numeric",
-                  month: "long",
-                })
-              : ""}{" "}
-            · {clock ? clock.toLocaleTimeString("es-ES") : ""}
+                Monitoreo en vivo · Operador Nivel 2
+              </span>
+            </div>
           </div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <button
-            onClick={() => {
-              setSearchSeed(null);
-              setSearchOpen(true);
-            }}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 7,
-              background: "var(--surface-2)",
-              border: "1px solid var(--border)",
-              borderRadius: 6,
-              padding: "7px 12px",
-              color: "var(--text-secondary)",
-              fontSize: 12.5,
-              cursor: "pointer",
-            }}
-          >
-            <Search size={13} /> Buscar relacionados
-          </button>
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <span
-              style={{
-                width: 7,
-                height: 7,
-                borderRadius: "50%",
-                background: "var(--accent)",
-                boxShadow: "0 0 0 4px rgba(47,191,159,0.18)",
-              }}
-            />
-            <span
-              style={{
-                fontSize: 11.5,
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-                color: "var(--text-tertiary)",
-              }}
-            >
-              Monitoreo en vivo · Operador Nivel 2
-            </span>
-          </div>
-        </div>
-      </div>
+      </header>
 
-      <div
-        className={
-          "w-full flex flex-col lg:flex-row gap-6 mt-6 transition-all duration-300 " +
-          (selected ? "w-full lg:w-2/3" : "w-full")
-        }
-      >
-        <div className="w-full flex-row lg:w-2/3">
+      <div className="w-full flex flex-col lg:flex-row gap-6 mt-6">
+        <div
+          className={
+            "transition-all duration-300 flex flex-col gap-6 " +
+            (selected ? "w-full lg:w-2/3" : "w-full")
+          }
+        >
           {/* FILA 1: * Tarjetas KPI Incidentes*/}
 
-          <div className="w-full flex flex-col lg:flex-row gap-6 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Tarjeta Volumen */}
             <div
               style={{
@@ -1124,220 +1118,213 @@ export default function CORDashboard() {
             </div>
           </div>
           {/* FILA 2: TABLA INCIDENTES*/}
-          <div className="w-full flex flex-col lg:flex-row gap-6 mt-6">
+
+          <div
+            style={{
+              background: "var(--surface-1)",
+              border: "1px solid var(--border)",
+              borderRadius: 10,
+              padding: "18px 20px",
+            }}
+          >
+            {/*  ENCABEZADO TABLA */}
             <div
               style={{
-                background: "var(--surface-1)",
-                border: "1px solid var(--border)",
-                borderRadius: 10,
-                padding: "18px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 14,
               }}
             >
-              {/*  ENCABEZADO TABLA */}
-              <div
+              <span
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  marginBottom: 14,
+                  fontFamily: "var(--font-display)",
+                  fontSize: 15,
+                  fontWeight: 600,
                 }}
               >
-                <span
+                Registro de Fallas
+              </span>
+              <span style={{ fontSize: 11.5, color: "var(--text-quaternary)" }}>
+                {incidents.length} incidentes activos · clic en una fila para
+                ver detalle
+              </span>
+            </div>
+            {/*  FILTROS TABLA */}
+            <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
+              {["P1", "P2", "P3", "P4", "P5"].map((p) => (
+                <button
+                  key={p}
+                  onClick={() =>
+                    setFiltroPrioridad(filtroPrioridad === p ? null : p)
+                  }
                   style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 15,
+                    fontFamily: "var(--font-mono)",
+                    fontSize: 11.5,
                     fontWeight: 600,
+                    padding: "4px 12px",
+                    borderRadius: 20,
+                    cursor: "pointer",
+                    color:
+                      filtroPrioridad === p
+                        ? "var(--surface-0)"
+                        : PRIORITY_META[p].color,
+                    background:
+                      filtroPrioridad === p
+                        ? PRIORITY_META[p].color
+                        : PRIORITY_META[p].bg,
+                    border: `1px solid rgba(${PRIORITY_META[p].rgb}, 0.4)`,
+                    transition: "all 0.15s ease",
                   }}
                 >
-                  Registro de Fallas
-                </span>
-                <span
-                  style={{ fontSize: 11.5, color: "var(--text-quaternary)" }}
+                  {p}
+                </button>
+              ))}
+              {filtroPrioridad && (
+                <button
+                  onClick={() => setFiltroPrioridad(null)}
+                  style={{
+                    fontSize: 11.5,
+                    padding: "4px 10px",
+                    borderRadius: 20,
+                    cursor: "pointer",
+                    color: "var(--text-tertiary)",
+                    background: "transparent",
+                    border: "1px solid var(--border)",
+                  }}
                 >
-                  {incidents.length} incidentes activos · clic en una fila para
-                  ver detalle
-                </span>
-              </div>
-              {/*  FILTROS TABLA */}
-              <div style={{ display: "flex", gap: 8, marginBottom: 14 }}>
-                {["P1", "P2", "P3", "P4", "P5"].map((p) => (
-                  <button
-                    key={p}
-                    onClick={() =>
-                      setFiltroPrioridad(filtroPrioridad === p ? null : p)
-                    }
+                  Limpiar
+                </button>
+              )}
+            </div>
+            {/*  TABLA INCIDENTES */}
+            <div style={{ overflowX: "auto" }}>
+              <table style={{ fontSize: 12.5 }}>
+                <thead>
+                  <tr
                     style={{
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 11.5,
-                      fontWeight: 600,
-                      padding: "4px 12px",
-                      borderRadius: 20,
-                      cursor: "pointer",
-                      color:
-                        filtroPrioridad === p
-                          ? "var(--surface-0)"
-                          : PRIORITY_META[p].color,
-                      background:
-                        filtroPrioridad === p
-                          ? PRIORITY_META[p].color
-                          : PRIORITY_META[p].bg,
-                      border: `1px solid rgba(${PRIORITY_META[p].rgb}, 0.4)`,
-                      transition: "all 0.15s ease",
-                    }}
-                  >
-                    {p}
-                  </button>
-                ))}
-                {filtroPrioridad && (
-                  <button
-                    onClick={() => setFiltroPrioridad(null)}
-                    style={{
-                      fontSize: 11.5,
-                      padding: "4px 10px",
-                      borderRadius: 20,
-                      cursor: "pointer",
                       color: "var(--text-tertiary)",
-                      background: "transparent",
-                      border: "1px solid var(--border)",
+                      fontSize: 10.5,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.05em",
                     }}
                   >
-                    Limpiar
-                  </button>
-                )}
-              </div>
-              {/*  TABLA INCIDENTES */}
-              <div style={{ overflowX: "auto" }}>
-                <table style={{ fontSize: 12.5 }}>
-                  <thead>
+                    <th style={{ padding: "0 14px 10px 0" }}>Ticket</th>
+                    <th style={{ padding: "0 14px 10px 0" }}>Descripción</th>
+                    <th style={{ padding: "0 14px 10px 0" }}>Prioridad</th>
+                    <th style={{ padding: "0 14px 10px 0" }}>Zona</th>
+                    <th style={{ padding: "0 14px 10px 0" }}>Grupo</th>
+                    <th style={{ padding: "0 14px 10px 0" }}>Asignado a</th>
+                    <th style={{ padding: "0 14px 10px 0" }}>Tiempo abierto</th>
+                    <th style={{ padding: "0 14px 10px 0" }}>Próximo avance</th>
+                    <th style={{ padding: "0 0 10px 0" }}>CI afectado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filasVisibles.map((i) => (
                     <tr
-                      style={{
-                        color: "var(--text-tertiary)",
-                        fontSize: 10.5,
-                        textTransform: "uppercase",
-                        letterSpacing: "0.05em",
+                      key={i.ticketNumber}
+                      style={{ borderTop: "1px solid var(--border-subtle)" }}
+                      onClick={() => {
+                        setSelected(i);
+                        fetch(`http://localhost:8080/api/incidentes/${i.id}`)
+                          .then((res) => res.json())
+                          .then((data) => setDetailIncident(data))
+                          .catch((err) =>
+                            console.error("Error cargando detalle:", err),
+                          );
                       }}
                     >
-                      <th style={{ padding: "0 14px 10px 0" }}>Ticket</th>
-                      <th style={{ padding: "0 14px 10px 0" }}>Descripción</th>
-                      <th style={{ padding: "0 14px 10px 0" }}>Prioridad</th>
-                      <th style={{ padding: "0 14px 10px 0" }}>Zona</th>
-                      <th style={{ padding: "0 14px 10px 0" }}>Grupo</th>
-                      <th style={{ padding: "0 14px 10px 0" }}>Asignado a</th>
-                      <th style={{ padding: "0 14px 10px 0" }}>
-                        Tiempo abierto
-                      </th>
-                      <th style={{ padding: "0 14px 10px 0" }}>
-                        Próximo avance
-                      </th>
-                      <th style={{ padding: "0 0 10px 0" }}>CI afectado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filasVisibles.map((i) => (
-                      <tr
-                        key={i.ticketNumber}
-                        style={{ borderTop: "1px solid var(--border-subtle)" }}
-                        onClick={() => {
-                          setSelected(i);
-                          fetch(`http://localhost:8080/api/incidentes/${i.id}`)
-                            .then((res) => res.json())
-                            .then((data) => setDetailIncident(data))
-                            .catch((err) =>
-                              console.error("Error cargando detalle:", err),
-                            );
+                      <td
+                        style={{
+                          padding: "10px 14px 10px 0",
+                          fontFamily: "var(--font-mono)",
+                          color: "var(--accent)",
                         }}
                       >
-                        <td
-                          style={{
-                            padding: "10px 14px 10px 0",
-                            fontFamily: "var(--font-mono)",
-                            color: "var(--accent)",
-                          }}
-                        >
-                          {i.ticketNumber}
-                        </td>
-                        <td
-                          style={{
-                            padding: "10px 14px 10px 0",
-                            color: "#C9D0D8",
-                            maxWidth: 240,
-                          }}
-                        >
-                          {i.descripcion}
-                        </td>
-                        <td style={{ padding: "10px 14px 10px 0" }}>
-                          <PriorityBadge prio={i.prioridad} />
-                        </td>
-                        <td
-                          style={{
-                            padding: "10px 14px 10px 0",
-                            color: "var(--text-secondary)",
-                          }}
-                        >
-                          {i.zona}
-                        </td>
-                        <td
-                          style={{
-                            padding: "10px 14px 10px 0",
-                            color: "var(--text-secondary)",
-                          }}
-                        >
-                          {i.grupoAsignacion}
-                        </td>
-                        <td style={{ padding: "10px 14px 10px 0" }}>
-                          {i.asignadoUsuario ? (
-                            <span style={{ color: "var(--text-secondary)" }}>
-                              {i.asignadoUsuario}
-                            </span>
-                          ) : i.prioridad === "P1" ||
-                            i.prioridad === "P2" ||
-                            i.prioridad === "P3" ? (
-                            <span
-                              style={{
-                                color: "var(--warning)",
-                                fontWeight: 600,
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: 4,
-                              }}
-                            >
-                              Sin asignar
-                            </span>
-                          ) : (
-                            <span style={{ color: "var(--text-quaternary)" }}>
-                              Sin asignar
-                            </span>
-                          )}
-                        </td>
-                        <td
-                          style={{
-                            padding: "10px 14px 10px 0",
-                            fontFamily: "var(--font-mono)",
-                            color: "var(--text-secondary)",
-                          }}
-                        >
-                          {fmtMin(i.tiempoAbierto)}
-                        </td>
-                        <td style={{ padding: "10px 14px 10px 0" }}>
-                          <SemaforoDot
-                            estado={i.semaforo}
-                            proximoAvanceEn={i.proximoAvanceEn}
-                          />
-                        </td>
-                        <td
-                          style={{
-                            padding: "10px 0",
-                            fontFamily: "var(--font-mono)",
-                            color: "var(--text-quaternary)",
-                          }}
-                        >
-                          {i.ci}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                        {i.ticketNumber}
+                      </td>
+                      <td
+                        style={{
+                          padding: "10px 14px 10px 0",
+                          color: "#C9D0D8",
+                          maxWidth: 240,
+                        }}
+                      >
+                        {i.descripcion}
+                      </td>
+                      <td style={{ padding: "10px 14px 10px 0" }}>
+                        <PriorityBadge prio={i.prioridad} />
+                      </td>
+                      <td
+                        style={{
+                          padding: "10px 14px 10px 0",
+                          color: "var(--text-secondary)",
+                        }}
+                      >
+                        {i.zona}
+                      </td>
+                      <td
+                        style={{
+                          padding: "10px 14px 10px 0",
+                          color: "var(--text-secondary)",
+                        }}
+                      >
+                        {i.grupoAsignacion}
+                      </td>
+                      <td style={{ padding: "10px 14px 10px 0" }}>
+                        {i.asignadoUsuario ? (
+                          <span style={{ color: "var(--text-secondary)" }}>
+                            {i.asignadoUsuario}
+                          </span>
+                        ) : i.prioridad === "P1" ||
+                          i.prioridad === "P2" ||
+                          i.prioridad === "P3" ? (
+                          <span
+                            style={{
+                              color: "var(--warning)",
+                              fontWeight: 600,
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: 4,
+                            }}
+                          >
+                            Sin asignar
+                          </span>
+                        ) : (
+                          <span style={{ color: "var(--text-quaternary)" }}>
+                            Sin asignar
+                          </span>
+                        )}
+                      </td>
+                      <td
+                        style={{
+                          padding: "10px 14px 10px 0",
+                          fontFamily: "var(--font-mono)",
+                          color: "var(--text-secondary)",
+                        }}
+                      >
+                        {fmtMin(i.tiempoAbierto)}
+                      </td>
+                      <td style={{ padding: "10px 14px 10px 0" }}>
+                        <SemaforoDot
+                          estado={i.semaforo}
+                          proximoAvanceEn={i.proximoAvanceEn}
+                        />
+                      </td>
+                      <td
+                        style={{
+                          padding: "10px 0",
+                          fontFamily: "var(--font-mono)",
+                          color: "var(--text-quaternary)",
+                        }}
+                      >
+                        {i.ci}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
